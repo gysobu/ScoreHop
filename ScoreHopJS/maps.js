@@ -16,7 +16,7 @@ new L.marker([29.7522, -95.3524], {bounceOnAdd: false}).bindPopup("<b>BBVA Compa
 
 // Beer Icon styling
 var beerIcon = L.icon({
-    iconUrl: 'icons/beermug.svg',
+    iconUrl: '../../icons/beermug.svg',
     iconSize: [25, 60],
     // color: rgb(255,69,0),
     // iconAnchor: [3, 50],
