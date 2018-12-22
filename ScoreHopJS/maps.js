@@ -122,11 +122,39 @@ var map = new mapboxgl.Map({
 
 map.addControl(new mapboxgl.NavigationControl());
 
+// Search bar
 var geocoder = new MapboxGeocoder({
     accessToken: mapboxgl.accessToken,
 });
 
 document.getElementById('geocoder').appendChild(geocoder.onAdd(map))
+
+// Places a point to location searched
+map.on('load', function() {
+    map.addSource('single-point', {
+        "type": "geojson",
+        "data": {
+            "type": "FeatureCollection",
+            "features": []
+        }
+    });
+
+    map.addLayer({
+        "id": "point",
+        "source": "single-point",
+        "type": "circle",
+        "paint": {
+            "circle-radius": 10,
+            "circle-color": "#2FF37A"
+        }
+    });
+
+    // Listen for the `result` event from the MapboxGeocoder that is triggered when a user
+    // makes a selection and add a symbol that matches the result.
+    geocoder.on('result', function(ev) {
+        map.getSource('single-point').setData(ev.result.geometry);
+    });
+});
 
 var popup = new mapboxgl.Popup({ offset: 38 })
     .setText('Houston, Texas');
@@ -136,9 +164,6 @@ var marker = new mapboxgl.Marker({color:'red'})
     .setLngLat([-95.3698, 29.7604])
     .setPopup(popup)
     .addTo(map);
-
-
-
 
 geojson.features.forEach(function(marker) {
     // create a DOM element for the marker
