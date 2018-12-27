@@ -15,10 +15,10 @@ L.marker([29.7522, -95.3524], {bounceOnAdd: false}).bindPopup("<b>BBVA Compass S
 
 // Beer Icon styling
 var beerIcon = L.icon({
-    iconUrl: '../icons/beermug.svg',
-    iconSize: [25, 60],
+    iconUrl: '../icons/colormug.jpg',
+    iconSize: [30, 30],
     // color: rgb(255,69,0),
-    iconAnchor: [3, 50],
+    iconAnchor: [15, 15],
     popupAnchor: [0, -10],
     // shadowSize: [68, 95],
     // shadowAnchor: [22, 94]
