@@ -103,7 +103,7 @@ $("a").click(function(event){
      coordsarr.map(function(arr,index){
          if(arr['id']==idval){
             venueMarker(arr['lat'],arr['lon'],arr['venue'])
-            $('#main').remove()
+            $('li').remove()
              console.log(arr['lat'])
              console.log(arr['lon'])
              console.log(arr['venue'])
