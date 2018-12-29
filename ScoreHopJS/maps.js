@@ -11,8 +11,12 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
 }).addTo(map1);
 
 // Blue marker. Iniate on search function.
-L.marker([29.7522, -95.3524], {bounceOnAdd: false}).bindPopup("<b>BBVA Compass Stadium</b>").openPopup().addTo(map1);
-
+function venueMarker(lat,log,name){
+L.marker([lat,log], 
+    {bounceOnAdd: false}).
+    bindPopup(`<b>${name}</b>`).
+    openPopup().addTo(map1);
+}
 // Beer Icon styling
 var beerIcon = L.icon({
     iconUrl: '../icons/colormug.jpg',
@@ -32,9 +36,93 @@ L.marker([29.7711, -95.3486], {icon: beerIcon, bounceOnAdd: true}).bindPopup("<b
 
 
 // Logo Watermark
-//logo position: bottomright, topright, topleft, bottomleft
-// L.control.watermark = function(opts) {
-//     return new L.Control.Watermark(opts);
-// }
+// logo position: bottomright, topright, topleft, bottomleft
+L.Control.Watermark = L.Control.extend({
+    onAdd: function(map) {
+        var img = L.DomUtil.create('img');
 
-// L.control.watermark({ position: 'bottomleft' }).addTo(map1);
+        img.src = '../icons/logofinal.png';
+        img.style.width = '200px';
+
+        return img;
+    },
+
+    onRemove: function(map) {
+        // Nothing to do here
+    }
+});
+
+L.control.watermark = function(opts) {
+    return new L.Control.Watermark(opts);
+}
+
+L.control.watermark({ position: 'bottomright' }).addTo(map1);
+
+
+//Search bar js 
+$(function () {
+
+    $('#button-addon2').click(function () {
+        $('li').remove()
+        var coordsarr = [];
+
+        var interest = $('#event').val()
+        var usercity = $("#city").val()
+        var $unorder = $("#unorder-list")
+        //   $.get(`https://api.seatgeek.com/2/events?client_id=MTQ0OTYyNTZ8MTU0NTI2OTM2NS4yNg`)
+        $.get(`https://api.seatgeek.com/2/events?q=${interest}&client_id=MTQ0OTYyNTZ8MTU0NTI2OTM2NS4yNg`)
+            .done(result => {
+                console.log(result)
+                $.each(result.events, function (index, value) {
+                    //    if(value.venue.city==usercity){    
+                    console.log(value.title)
+                    console.log(value.venue.name)
+                    console.log(new Date(value.datetime_utc))
+                    //  console.log(new Date(value.datetime_local))
+                    date = new Date(value.datetime_local)
+                    console.log(value.venue.address + " " + value.venue.extended_address)
+                    console.log(value.venue.id)
+                    console.log(`lat=` + value.venue.location.lat)
+                    console.log(`lon=` + value.venue.location.lon)
+                    $unorder.append("<li><div class='card bg-info text-white'>" +
+                        "<div class='card-body'>" + "<a style='color:white' id=" + value.venue.id + " href='#'>" +
+                        "<p>" + value.title + "</p>" +
+                        "<p>" + new Date(value.datetime_utc) + "</p>" +
+                        "<p>" + value.venue.address + " " + value.venue.extended_address + "</p>" +
+                        "</a></div></div><br></li>")// end of append
+                    var coords = {}
+                    coords['lat'] = value.venue.location.lat
+                    coords['lon'] = value.venue.location.lon
+                    coords['id'] = value.venue.id
+                    coords['venue'] = value.venue.name
+                    coordsarr.push(coords)
+                    console.log(coords)
+                    console.log(coordsarr)
+                    //    }
+                })// end of each
+
+                $("a").click(function (event) {
+                    event.preventDefault()
+
+                    console.log(coordsarr)
+                    console.log(event)
+                    //var idval=this.id
+                    var idval = $(this).attr('id');
+                    //
+                    coordsarr.map(function (arr, index) {
+                        if (arr['id'] == idval) {
+                            venueMarker(arr['lat'], arr['lon'], arr['venue'])
+                            $('li').remove()
+                            console.log(arr['lat'])
+                            console.log(arr['lon'])
+                            console.log(arr['venue'])
+                        }
+                    })
+
+
+                })
+            })//end of done
+
+
+    })//end of click    
+})//end of Jquery
