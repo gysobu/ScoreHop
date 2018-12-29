@@ -13,7 +13,7 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
 // Blue marker. Iniate on search function.
 function venueMarker(lat,log,name){
 L.marker([lat,log], 
-    {bounceOnAdd: false}).
+    {bounceOnAdd: true}).
     bindPopup(`<b>${name}</b>`).
     openPopup().addTo(map1);
 }
