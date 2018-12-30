@@ -1,5 +1,5 @@
 // Set starting coordinates
-var map1 = L.map('map').setView([29.7604, -95.3698], 12);
+var map1 = L.map('map').setView([37.0902, -95.7129], 4);
 
 // Dont touch
 L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
@@ -10,16 +10,32 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
         
 }).addTo(map1);
 
+map1.locate({setView: true, maxZoom: 12});
+
+// Locates user 
+function onLocationFound(e) {
+    var radius = e.accuracy / 1;
+
+    L.marker(e.latlng).addTo(map1)
+        .bindPopup("You are here").openPopup();
+
+    L.circle(e.latlng, radius).addTo(map1);
+}
+
+map1.on('locationfound', onLocationFound);
+
 // Blue marker. Iniate on search function.
 function venueMarker(lat,log,name){
-L.marker([lat,log], 
+L.marker ([lat,log],
     {bounceOnAdd: true}).
     bindPopup(`<b>${name}</b>`).
     openPopup().addTo(map1);
 }
+// 
+
 // Beer Icon styling
 var beerIcon = L.icon({
-    iconUrl: '../icons/colormug.jpg',
+    iconUrl: 'icons/colormug.jpg',
     iconSize: [30, 30],
     // color: rgb(255,69,0),
     iconAnchor: [15, 15],
@@ -41,7 +57,7 @@ L.Control.Watermark = L.Control.extend({
     onAdd: function(map) {
         var img = L.DomUtil.create('img');
 
-        img.src = '../icons/logofinal.png';
+        img.src = 'icons/logofinal.png';
         img.style.width = '200px';
 
         return img;
@@ -56,7 +72,7 @@ L.control.watermark = function(opts) {
     return new L.Control.Watermark(opts);
 }
 
-L.control.watermark({ position: 'bottomright' }).addTo(map1);
+L.control.watermark({ position: 'topleft' }).addTo(map1);
 
 
 //Search bar js 
@@ -117,9 +133,8 @@ $(function () {
                             console.log(arr['lon'])
                             console.log(arr['venue'])
                         }
+                        map1.panTo(new L.LatLng(arr['lat'], arr['lon'], arr['venue'], 8));
                     })
-
-
                 })
             })//end of done
 
