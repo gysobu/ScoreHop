@@ -158,9 +158,9 @@ function openBreweryApi(city){
         $('li').remove()
     
 
-        var interest = $('#event').val()
-        var usercity = $("#city").val()
-        var $unorder = $("#unorder-list")
+        let interest = $('#event').val()
+        let usercity = $("#city").val()
+        let $unorder = $("#unorder-list")
         $.get(`https://api.seatgeek.com/2/events?q=${interest}&client_id=MTQ0OTYyNTZ8MTU0NTI2OTM2NS4yNg`)
             .done(result => {
                 // console.log(result)
@@ -168,14 +168,14 @@ function openBreweryApi(city){
                     
                     date = new Date(value.datetime_local)
                     
-                    $unorder.append("<li><div class='card bg-info text-white'>" +
-                        "<div class='card-body'>" + "<a style='color:white' id=" + value.venue.id + " href='#'>" +
-                        "<p>" + value.title + "</p>" +
-                        "<p>" + new Date(value.datetime_utc) + "</p>" +
-                        "<p>" + value.venue.address + " " + value.venue.extended_address + "</p>" +
-                        "</a></div></div><br></li>") 
+                    $unorder.append(`<li><div class='card bg-info text-white'> 
+                        <div class='card-body'> <a style='color:white' id=${value.venue.id} href='#'> 
+                        <p> ${value.title}</p>
+                        <p> ${new Date(value.datetime_utc)}</p>
+                        <p> ${value.venue.address}  ${value.venue.extended_address}</p>
+                        </a></div></div><br></li>`) 
                         // end of append
-                    var coords = {}
+                    let coords = {}
                     coords['lat'] = value.venue.location.lat
                     coords['lon'] = value.venue.location.lon
                     coords['id'] = value.venue.id
