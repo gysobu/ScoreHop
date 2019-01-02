@@ -1,7 +1,7 @@
 .sbox {
     position: absolute; 
     z-index: 950;
-    top:50%; 
+    top:70%; 
     left: 10%;
     width:100%;
 }
@@ -29,6 +29,7 @@ img{
 
 li {
     list-style-type:none;
+    /* width:600px; */
 }
 
 p {
@@ -43,13 +44,14 @@ p {
     height:15%;
 } */
 
-#unorder-list{
-    max-height: 300px;
-    margin-bottom: 10px;
-    overflow:scroll;
-    -webkit-overflow-scrolling: touch;
-
+ #unorder-list{  
+    max-height: 100px;
+     margin-bottom: 10px; 
+    overflow:scroll; 
+    -webkit-overflow-scrolling: touch; 
+     /* width:600px; */
 }
+
 
 .searchboxcon{
     display: flex;
