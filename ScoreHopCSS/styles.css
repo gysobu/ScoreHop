@@ -20,11 +20,12 @@ input{
     position: absolute;
     z-index: 900;
     top: 1%;
-    left: 30%;
-    
+    left: 40%;
+    width: 40%;
 }
+
 img{
-    width: 80%;
+    width: 60%;
 }
 
 li {
