@@ -9,6 +9,13 @@ var beerIcon = L.icon({
     popupAnchor: [0, -10],
   
 });
+// User icon
+var userIcon = L.icon({
+    iconUrl: '../icons/male-solid.svg',
+    iconSize: [30, 30],
+    iconAnchor: [15, 15],
+    popupAnchor: [0, -10]
+ });
 
 
 //array for brewery
@@ -38,8 +45,8 @@ map1.locate({
 function onLocationFound(e) {
     var radius = e.accuracy / 1;
 
-    L.marker(e.latlng).addTo(map1)
-        .bindPopup("You are here").openPopup();
+    L.marker(e.latlng, {icon: userIcon})
+        .bindPopup("You are here").openPopup().addTo(map1);
 
     L.circle(e.latlng, radius).addTo(map1);
 }
@@ -78,14 +85,14 @@ function venueMarker(lat, long, name, title) {
 var onClickLatLngBrewery = []
 console.log(onClickLatLngBrewery)
 //add Brewery markers
-function addBreweryMarkers(lat, long, name) {
+function addBreweryMarkers(lat, long, name, street, city, state, postal) {
     var latlngBrewery = L.latLng(lat, long)
     onClickLatLngBrewery.push(latlngBrewery)
 
     L.marker(latlngBrewery, {
         icon: beerIcon,
         bounceOnAdd: true
-    }).bindPopup(`<b>${name}</b>`).openPopup().addTo(map1);
+    }).bindPopup(`<b>${name}</b> <a href="https://www.google.com/maps?q=${street},${city},${state},${postal}"> <br> ${street} <br> ${city}, ${state} ${postal} </a>`).openPopup().addTo(map1)
 }
 //end addBreweryMarkers()
 
@@ -122,6 +129,14 @@ function openBreweryApi(city){
 
                                 set["brewery"] = value.name
 
+                                set["street"] = value.street
+
+                                set["city"] = value.city
+
+                                set["state"] = value.state
+
+                                set["postal"] = value.postal
+
                                 
                                 coord.push(set)
 
@@ -140,7 +155,7 @@ function openBreweryApi(city){
                         
                         coord.map(function (arr, index) {
                             
-                        addBreweryMarkers(arr['lat'], arr['lng'], arr['brewery'])
+                            addBreweryMarkers(arr['lat'], arr['lng'], arr['brewery'], arr['street'], arr['city'], arr['state'], arr['postal'])
 
                     })
                     
