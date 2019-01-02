@@ -16,8 +16,8 @@ map1.locate({setView: true, maxZoom: 12});
 function onLocationFound(e) {
     var radius = e.accuracy / 1;
 
-    L.marker(e.latlng).addTo(map1)
-        .bindPopup("You are here").openPopup();
+    L.marker(e.latlng, {icon: userIcon}).
+    bindPopup("You are here").openPopup().addTo(map1);
 
     L.circle(e.latlng, radius).addTo(map1);
 }
@@ -25,13 +25,23 @@ function onLocationFound(e) {
 map1.on('locationfound', onLocationFound);
 
 // Blue marker. Iniate on search function.
-function venueMarker(lat,log,name){
+function venueMarker(lat,log,name,title){
 L.marker ([lat,log],
     {bounceOnAdd: true}).
-    bindPopup(`<b>${name}</b>`).
+    bindPopup(`<h6>${name}</h6>` + `<b>${title}</b>`).
     openPopup().addTo(map1);
 }
 // 
+// User icon
+var userIcon = L.icon({
+    iconUrl: 'icons/male-solid.svg',
+    iconSize: [30, 30],
+    // color: rgb(255,69,0),
+    iconAnchor: [15, 15],
+    popupAnchor: [0, -10],
+    // shadowSize: [68, 95],
+    // shadowAnchor: [22, 94]
+});
 
 // Beer Icon styling
 var beerIcon = L.icon({
@@ -64,7 +74,6 @@ L.Control.Watermark = L.Control.extend({
     },
 
     onRemove: function(map) {
-        // Nothing to do here
     }
 });
 
@@ -110,7 +119,9 @@ $(function () {
                     coords['lat'] = value.venue.location.lat
                     coords['lon'] = value.venue.location.lon
                     coords['id'] = value.venue.id
+                    coords['title'] = value.title
                     coords['venue'] = value.venue.name
+                    
                     coordsarr.push(coords)
                     console.log(coords)
                     console.log(coordsarr)
@@ -127,13 +138,15 @@ $(function () {
                     //
                     coordsarr.map(function (arr, index) {
                         if (arr['id'] == idval) {
-                            venueMarker(arr['lat'], arr['lon'], arr['venue'])
+                            venueMarker(arr['lat'], arr['lon'], arr['venue'], arr['title'])
                             $('li').remove()
                             console.log(arr['lat'])
                             console.log(arr['lon'])
                             console.log(arr['venue'])
+                            console.log(arr['title'])
                         }
-                        map1.panTo(new L.LatLng(arr['lat'], arr['lon'], arr['venue'], 8));
+                        // Pans to added marker
+                        map1.panTo(new L.LatLng(arr['lat'], arr['lon'], 12));
                     })
                 })
             })//end of done
