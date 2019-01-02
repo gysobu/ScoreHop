@@ -11,12 +11,17 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
 }).addTo(map1);
 
 // Blue marker. Iniate on search function.
+<<<<<<< HEAD
 function venueMarker(lat,log,name){
 L.marker([lat,log], 
     {bounceOnAdd: false}).
     bindPopup(`<b>${name}</b>`).
     openPopup().addTo(map1);
 }
+=======
+L.marker([29.7522, -95.3524], {bounceOnAdd: false}).bindPopup("<b>BBVA Compass Stadium</b>").openPopup().addTo(map1);
+
+>>>>>>> 333702b568ce4c60ab65609841db34a4767d762f
 // Beer Icon styling
 var beerIcon = L.icon({
     iconUrl: '../icons/colormug.jpg',
@@ -45,6 +50,7 @@ var logo = L.control({position: 'topleft'});
     }
     logo.addTo(map1);
 
+<<<<<<< HEAD
 
    //Search bar js 
 
@@ -123,3 +129,5 @@ $("a").click(function(event){
 
 })//end of click    
  })//end of Jquery
+=======
+>>>>>>> 333702b568ce4c60ab65609841db34a4767d762f
