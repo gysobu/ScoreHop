@@ -54,11 +54,11 @@ var logo = L.control({position: 'topleft'});
     
     {  
         $('li').remove()   
-     var coordsarr=[]; 
+     let coordsarr=[]; 
      
-     var interest=$('#event').val()  
-     var usercity=$("#city").val()
-     var $unorder=$("#unorder-list")
+     let interest=$('#event').val()  
+     let usercity=$("#city").val()
+     let $unorder=$("#unorder-list")
 //   $.get(`https://api.seatgeek.com/2/events?client_id=MTQ0OTYyNTZ8MTU0NTI2OTM2NS4yNg`)
 $.get(`https://api.seatgeek.com/2/events?q=${interest}&client_id=MTQ0OTYyNTZ8MTU0NTI2OTM2NS4yNg`)
 .done(result=>
@@ -75,12 +75,18 @@ $.get(`https://api.seatgeek.com/2/events?q=${interest}&client_id=MTQ0OTYyNTZ8MTU
     console.log(value.venue.id)
     console.log(`lat=`+value.venue.location.lat)
     console.log(`lon=`+value.venue.location.lon)
-    $unorder.append("<li><div class='card bg-info text-white'>"+
-    "<div class='card-body'>"+"<a style='color:white' id="+value.venue.id+" href='#'>"+
-    "<p>"+value.title+"</p>"+
-     "<p>"+new Date(value.datetime_utc)+"</p>"+
-     "<p>"+value.venue.address+" "+value.venue.extended_address+"</p>"+
-     "</a></div></div><br></li>")// end of append
+    // $unorder.append("<li><div class='card bg-info text-white'>"+
+    // "<div class='card-body'>"+"<a style='color:white' id="+value.venue.id+" href='#'>"+
+    // "<p>"+value.title+"</p>"+
+    //  "<p>"+new Date(value.datetime_utc)+"</p>"+
+    //  "<p>"+value.venue.address+" "+value.venue.extended_address+"</p>"+
+    //  "</a></div></div><br></li>")
+     $unorder.append(`<li><div class='card bg-info text-white'>
+    <div class='card-body'><a style='color:white' id=${value.venue.id} href='#'>
+    <p>${value.title}</p>
+    <p>${new Date(value.datetime_utc)}</p>
+     <p>${value.venue.address} ${value.venue.extended_address}</p>
+     </a></div></div><br></li>`)// end of append
    var coords={}
    coords['lat']=value.venue.location.lat
    coords['lon']=value.venue.location.lon
@@ -98,7 +104,7 @@ $("a").click(function(event){
      console.log(coordsarr)
      console.log(event)
      //var idval=this.id
-     var idval=$(this).attr('id');
+     let idval=$(this).attr('id');
      //
      coordsarr.map(function(arr,index){
          if(arr['id']==idval){
