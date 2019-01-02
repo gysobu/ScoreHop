@@ -1,8 +1,7 @@
 .sbox {
     position: absolute; 
     z-index: 950;
-    top:70%; 
-    left: 10%;
+    top:70%;
     width:100%;
 }
 
@@ -46,8 +45,8 @@ p {
 } */
 
  #unorder-list{  
-    max-height: 100px;
-     margin-bottom: 10px; 
+    max-height: 150px;
+     /* margin-bottom: 10px;  */
     overflow:scroll; 
     -webkit-overflow-scrolling: touch; 
      /* width:600px; */
@@ -57,5 +56,5 @@ p {
 .searchboxcon{
     display: flex;
     justify-content:center;
-    align-items: center; 
+    /* align-items: center;  */
 }
