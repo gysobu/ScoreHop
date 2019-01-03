@@ -15,21 +15,24 @@ input{
     height: 100vh;
     /* top: 85px; */
 }
-#logoContainer {
+.logoimage {
     position: absolute;
     z-index: 900;
     top: 1%;
-    left: 40%;
-    width: 40%;
+    display: flex;
+    justify-content: center;
 }
 
-img{
-    width: 60%;
-}
+
+
+/* img{
+
+    width: 30%;
+    height: 5%
+} */
 
 li {
     list-style-type:none;
-    /* width:600px; */
 }
 
 p {
@@ -57,4 +60,23 @@ p {
     display: flex;
     justify-content:center;
     /* align-items: center;  */
+    /* height: 100px; */
 }
+
+
+
+
+
+
+@media (max-width: 576px){
+    .sbox {
+        position: absolute; 
+        z-index: 950;
+        top:70%;
+        width:100%;
+    }
+
+
+
+}
+
