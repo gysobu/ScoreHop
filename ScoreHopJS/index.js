@@ -3,7 +3,7 @@ var map1 = L.map('map').setView([37.0902, -95.7129], 4);
 
 // Beer Icon styling
 var beerIcon = L.icon({
-    iconUrl: '../icons/colormug.jpg',
+    iconUrl: 'icons/colormug.jpg',
     iconSize: [30, 30],
     iconAnchor: [15, 15],
     popupAnchor: [0, -10],
@@ -11,7 +11,7 @@ var beerIcon = L.icon({
 });
 // User icon
 var userIcon = L.icon({
-    iconUrl: '../icons/male-solid.svg',
+    iconUrl: 'icons/male-solid.svg',
     iconSize: [30, 30],
     iconAnchor: [15, 15],
     popupAnchor: [0, -10]
